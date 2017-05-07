@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <style>
+       #map {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
+  </head>
+  <body>
+<h3>My Google Maps Demo</h3>
+<div id="map"></div>
+ <!-- Replace the value of the key parameter with your own API key. -->
+ <script>
+ var citymap = {
+  台中火車站: {
+    center: {lat: 24.137108, lng:  120.685347},
+    population: 200
+  },
+  中興大學: {
+    center: {lat:24.124007 , lng:120.675369 },
+    population: 50
+  },
+ 一中街: {
+    center: {lat:24.152187 , lng:  120.684566},
+    population: 150
+  }
+};
+
+function initMap() {
+  var uluru = {lat: 24.137108, lng:120.685347 };
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 10,
+    center: uluru
+  });
+  /*var marker = new google.maps.Marker({
+    position: uluru,
+    map: map,
+    title: '我要繁體中文'
+  });*/
+  for (var city in citymap) {
+    // Add the circle for this city to the map.
+    var cityCircle = new google.maps.Circle({
+      strokeColor: '#0000FF',
+      strokeOpacity: 0,
+      strokeWeight: 2,
+      fillColor: '#0000FF',
+      fillOpacity: 0.35,
+      map: map,
+      center: citymap[city].center,
+      radius: Math.sqrt(citymap[city].population) * 100,
+    });
+    var marker = new google.maps.Marker({
+    position:citymap[city].center ,
+    map: map,
+    title:city// '我要繁體中文'
+  });
+  }
+ }
+</script>
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDg90-IrOIgP5cH8hjikpDX6Wx-lm6EgFM&callback=initMap"></script>
+  </body>
+</html>
